@@ -1,1 +1,1 @@
-Приложение поиска изображений по ключевому слову.
+An image search application by keyword.
