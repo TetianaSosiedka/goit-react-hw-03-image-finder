@@ -4,11 +4,14 @@ import { Li } from './ImageGalleryItem.styled';
 
 const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
   return (
-    <>
-      <Li>
-        <img src={webformatURL} alt={tags} loading="lazy" />
-      </Li>
-    </>
+    <Li>
+      <img
+        src={webformatURL}
+        alt={tags}
+        data-modal={largeImageURL}
+        loading="lazy"
+      />
+    </Li>
   );
 };
 

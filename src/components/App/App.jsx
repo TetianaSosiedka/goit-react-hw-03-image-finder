@@ -10,6 +10,7 @@ import Searchbar from 'components/Searchbar';
 import ButtonComponent from 'components/Button';
 import ImageGallery from 'components/ImageGallery';
 import Loader from 'components/Loader';
+import Modal from 'components/Modal';
 
 export class App extends Component {
   state = {
@@ -18,6 +19,8 @@ export class App extends Component {
     page: 1,
     totalHits: 0,
     isLoading: false,
+    currentImg: [],
+    showModal: false,
   };
 
   componentDidUpdate(prevPrors, prevState) {
@@ -79,25 +82,47 @@ export class App extends Component {
     this.setState(name);
   };
 
+  hendleOupenModal = event => {
+    this.setState({
+      showModal: true,
+      currentImg: [event.target.alt, event.target.dataset.modal],
+    });
+  };
+
+  hendleCloseModal = () => {
+    this.setState({ showModal: false });
+  };
+
   render() {
     const images = this.state.images;
     const totalHits = this.state.totalHits;
     const isLoading = this.state.isLoading;
+    const showModal = this.state.showModal;
+    const currentImgTag = this.state.currentImg[0];
+    const currentImgLink = this.state.currentImg[1];
 
     return (
       <>
         <Searchbar onSubmit={this.getSearchName} />
 
-        <Container>
+        <Container onClick={this.hendleOupenModal}>
           <ImageGallery images={this.state.images} />
 
           {isLoading && <Loader />}
         </Container>
+
         {totalHits > images.length > 0 && !isLoading && (
           <ButtonComponent onLoadMore={this.hendleLoadMore}>
             Load more
           </ButtonComponent>
         )}
+
+        {showModal && (
+          <Modal onClouse={this.hendleCloseModal}>
+            <img src={currentImgLink} alt={currentImgTag} />
+          </Modal>
+        )}
+
         <ToastContainer
           position="top-right"
           autoClose={5000}
