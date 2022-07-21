@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const SearchApi = (searchName, nextPage) => {
   const KEY = '27694476-af667d0eda220e59ccfe1729b';
-  const URL = 'https://pixabay.com/api';
+  const URL = 'https://pixabay.com/api/';
 
   return axios
     .get(
